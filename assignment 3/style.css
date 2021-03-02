@@ -1,0 +1,26 @@
+heading {
+    color: #93054c;
+    font-size: 40px;
+    text-decoration: underline;
+}
+    
+Song {
+    font-size: 20px;
+    color: #fcacd4;
+    padding:5px;
+}
+    
+SetList {
+    background-color: #000000;
+    text-align: center;
+    font-family: serif;
+}
+
+heading, title, artist, genre, year { 
+    display : block;
+}
+    
+title {
+    font-size: 25px;
+    font-weight: bold;
+}
