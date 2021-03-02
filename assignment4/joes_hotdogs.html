@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Joe's Hotdog Stand</title>
+        <link rel='stylesheet' type="text/css" href="style.css" />
+    </head>
+
+    <body>
+        <h1>Joe's Hotdog Stand</h1>
+        <h2>Order Summary:</h2>
+        <script language="javascript">
+        price_dogs = 3.25;
+        price_fries = 2;
+        price_drinks = 1.5;
+        var discount = false, discount_value, new_subtotal;
+        num_dogs = prompt("Hello, how many hot dogs would you like?", "");
+        num_fries = prompt("Now, how many fries do you want with your order?", "");
+        num_drinks = prompt("Finally, how many drinks would you like?", "");
+        cost_dogs = num_dogs * price_dogs;
+        cost_fries = num_fries * price_fries;
+        cost_drinks = num_drinks * price_drinks;
+        orig_subtotal = cost_dogs + cost_fries + cost_drinks;
+        
+        if (orig_subtotal >= 20) {
+            discount_value = orig_subtotal * .1;
+            new_subtotal = orig_subtotal * .9;
+            discount = true;
+        }
+        if (orig_subtotal < 20) {
+            new_subtotal = orig_subtotal;
+        }
+        
+        tax = new_subtotal * .0625;
+        total = new_subtotal + tax;
+        
+        document.write("<strong>Items Ordered:</strong>")
+        document.write("<br>");
+        if(num_dogs == 1) {
+            document.write(num_dogs);
+            document.write(" Hot Dog");
+            document.write("<br>");
+        }
+        if(num_dogs > 1) {
+            document.write(num_dogs);
+            document.write(" Hot Dogs");
+            document.write("<br>");
+        }
+        if(num_fries == 1) {
+            document.write(num_fries);
+            document.write(" Fry");
+            document.write("<br>");
+        }
+        if(num_fries > 1) {
+            document.write(num_fries);
+            document.write(" Fries");
+            document.write("<br>");
+        }
+        if(num_drinks == 1) {
+            document.write(num_drinks);
+            document.write(" Drink");
+            document.write("<br>");
+        }
+        if(num_drinks > 1) {
+            document.write(num_drinks);
+            document.write(" Drinks");
+            document.write("<br>");
+        }
+        if(num_dogs == 0 && num_fries == 0 && num_drinks == 0) {
+            document.write("Nothing");
+            document.write("<br>");
+        }
+        document.write("<br>");
+        
+        if(discount == true) {
+            document.write("Your subtotal was $");
+            document.write(parseFloat(orig_subtotal).toFixed(2));
+            document.write(".");
+            document.write("<br>");
+            document.write("However, you got Joe's special discount! It was for $");
+            document.write(parseFloat(discount_value).toFixed(2));
+            document.write(".");
+            document.write("<br>");
+            document.write("Your new subtotal is $");
+            document.write(parseFloat(new_subtotal).toFixed(2));
+            document.write(".");
+            document.write("<br>");
+        }
+        if(discount == false) {
+            document.write("Your subtotal is $");
+            document.write(parseFloat(new_subtotal).toFixed(2));
+            document.write(".");
+            document.write("<br>");
+        }
+        
+        document.write("Your tax is $");
+        document.write(parseFloat(tax).toFixed(2));
+        document.write(".");
+        document.write("<br>");
+        
+        document.write("The total price of your meal is $");
+        document.write(parseFloat(total).toFixed(2));
+        document.write(".");
+        
+        </script>
+    </body>
+
+</html>
