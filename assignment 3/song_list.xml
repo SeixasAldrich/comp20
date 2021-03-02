@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="style.css"?>
+
+<SetList>
+    <heading>Set List for Cover Band:</heading>
+    
+    <Song>
+        <title>Boogie Pete</title>
+        <artist>Artist(s): Bug Hunter</artist>
+        <genre>Genre: Rock</genre>
+        <year>Year Released: 2018</year>
+    </Song>
+    
+    <Song>
+        <title>Moscow</title>
+        <artist>Artist(s): Autoheart</artist>
+        <genre>Genre: Alternative</genre>
+        <year>Year Released: 2013</year>
+    </Song>
+    
+    <Song>
+        <title>Sweet Hibiscus Tea</title>
+        <artist>Artist(s): Penelope Scott</artist>
+        <genre>Genre: Singer-Songwriter</genre>
+        <year>Year Released: 2020</year>
+    </Song>
+    
+    <Song>
+        <title>Dirty Imbecile</title>
+        <artist>Artist(s): The Happy Fits</artist>
+        <genre>Genre: Alternative</genre>
+        <year>Year Released: 2016</year>
+    </Song>
+    
+    <Song>
+        <title>Never Have I Ever</title>
+        <artist>Artist(s): Seb Adams</artist>
+        <genre>Genre: Rock</genre>
+        <year>Year Released: 2020</year>
+    </Song>
+    
+    <Song>
+        <title>Bumpin'</title>
+        <artist>Artist(s): MC Virgins, Yun Head, Shotgun Willy</artist>
+        <genre>Genre: Hip-Hop</genre>
+        <year>Year Released: 2021</year>
+    </Song>
+    
+    <Song>
+        <title>Social Mediasochist</title>
+        <artist>Artist(s): Common Shiner</artist>
+        <genre>Genre: Rock</genre>
+        <year>Year Released: 2013</year>
+    </Song>
+    
+    <Song>
+        <title>Little Miss Perfect</title>
+        <artist>Artist(s): Write Out Loud, Taylor Louderman</artist>
+        <genre>Genre: Pop</genre>
+        <year>Year Released: 2019</year>
+    </Song>
+    
+    <Song>
+        <title>You're Gonna Go Far, Kid</title>
+        <artist>Artist(s): The Offspring</artist>
+        <genre>Genre: Alternative</genre>
+        <year>Year Released: 2008</year>
+    </Song>
+    
+    <Song>
+        <title>Foothills</title>
+        <artist>Artist(s): Spence Hood</artist>
+        <genre>Genre: Pop</genre>
+        <year>Year Released: 2019</year>
+    </Song>
+    
+</SetList>
