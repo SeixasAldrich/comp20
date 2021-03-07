@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Amicable Numbers</title>
+        <link rel='stylesheet' type="text/css" href="style.css" />
+        
+        <script language="javascript">
+        
+            function checkAmic() {
+                this.number1 = document.getElementById("number1").value;
+                this.number2 = document.getElementById("number2").value;
+                
+                this.factors1 = findFactors(this.number1);
+                this.factors2 = findFactors(this.number2);
+                
+                alert_factors();
+                
+                this.sum1 = sumFactors(this.factors1);
+                this.sum2 = sumFactors(this.factors2);
+                
+                is_amic_print();
+            }
+            
+            function findFactors(x) {
+                var factors = [];
+                for(i = 0; i < x; i++) {
+                    if((x % i) == 0) {
+                        factors.push(i);
+                    }
+                }
+                return factors;
+            }
+            
+            function sumFactors(y) {
+                var sum = 0;
+                for(j = 0; j < y.length; j++) {
+                    sum = sum + y[j];
+                }
+                return sum;
+            }
+            
+            function alert_factors() {
+                alert("The factors for " + this.number1 + " are " +
+                      this.factors1.join(", ") + ".");
+                alert("The factors for " + this.number2 + " are " +
+                      this.factors2.join(", ") + ".");
+            }
+            
+            function is_amic_print() {
+                if((this.sum1 == this.number2) && (this.sum2 == this.number1)) {
+                    document.getElementById("here").innerHTML="The numbers:  "
+                    + this.number1 + " and " + this.number2 +
+                    " are amicable";
+                } else {
+                    document.getElementById("here").innerHTML="The numbers:  "
+                    + this.number1 + " and " + this.number2 +
+                    " are not amicable";
+                }
+            }
+            
+        </script>
+        
+    </head>
+        
+    <body>
+        <h2>Amicable Numbers</h2>
+        
+        <form>
+            First Number: <input type="number" id="number1">
+            <br/>
+            Second Number: <input type="number" id="number2">
+            <br/>
+            <input type="button" value="Check If Amicable" onclick="checkAmic()">
+            <br/>
+        </form>
+        
+        <div id='here'>&nbsp;</div>
+        
+    </body>
+
+</html>
