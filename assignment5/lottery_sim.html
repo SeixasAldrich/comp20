@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lottery Sim</title>
+        <link rel='stylesheet' type="text/css" href="style.css" />
+    </head>
+        
+    <body>
+        
+        <h2>Lottery Simulation</h2>
+        
+        <script language="javascript">
+            
+            var win_num = [];
+            
+            for (i = 0; i < 5; i++) {
+                win_num.push(Math.floor((Math.random() * 48)) + 1);
+            }
+            
+            win_num = win_num.sort(function(a, b){return a - b});
+            
+            lucky_num = Math.floor((Math.random() * 18)) + 1;
+            
+            user_num = prompt("Enter your 5 lottery number selections each " +
+                               "seperated by a space:", "");
+            indiv_num = user_num.split(" ");
+            
+            user_lucky = prompt("Enter your lucky number selection:", "");
+            
+            var count = 0;
+            var lucky_guess = false;
+            
+            for (j = 0; j < 5; j++) {
+                for(k = 0; k < 5; k++) {
+                    if(win_num[j] == indiv_num[k]) {
+                        ++count;
+                        break;
+                    }
+                }
+            }
+            
+            document.write("Your numbers:" + "<br/>");
+            
+            for(l = 0; l < 5; l++) {
+                document.write(indiv_num[l]);
+                document.write("&nbsp;&nbsp;");
+            }
+            document.write("<br/>");
+            document.write("<br/>");
+            
+            document.write("Your lucky number:" + "<br/>");
+            
+            document.write(user_lucky);
+            document.write("<br/>");
+            document.write("<br/>");
+            
+            document.write("Winning numbers:" + "<br/>");
+            
+            for(m = 0; m < 5; m++) {
+                document.write(win_num[m]);
+                document.write("&nbsp;&nbsp;");
+            }
+            document.write("<br/>");
+            document.write("<br/>");
+            
+            document.write("Winning lucky number:" + "<br/>");
+            document.write(lucky_num);
+            document.write("<br/>");
+            document.write("<br/>");
+            
+            if(count == 0) {
+                document.write("You matched none of the winning numbers.");
+                document.write("<br/>");
+            } else {
+                document.write("You matched " + count + " of the winning " +
+                               "numbers!");
+                document.write("<br/>");
+            }
+            
+            if(lucky_num == user_lucky) {
+                lucky_guess = true;
+                document.write("You matched the lucky ball!");
+            } else {
+                document.write("You did not match the lucky ball.");
+            }
+            document.write("<br/>");
+            
+            if(count == 0 && lucky_guess == false) {
+                document.write("You did not win a prize with your pick.");
+            } else if(count == 0 && lucky_guess == true) {
+                document.write("You won a prize of $4 for your pick!");
+            } else if(count == 1 && lucky_guess == false) {
+                document.write("You did not win a prize with your pick.");
+            } else if(count == 1 && lucky_guess == true) {
+                document.write("You won a prize of $6 for your pick!");
+            } else if(count == 2 && lucky_guess == false) {
+                document.write("You won a prize of $3 for your pick!");
+            } else if(count == 2 && lucky_guess == true) {
+                document.write("You won a prize of $25 for your pick!");
+            } else if(count == 3 && lucky_guess == false) {
+                document.write("You won a prize of $20 for your pick!");
+            } else if(count == 3 && lucky_guess == true) {
+                document.write("You won a prize of $150 for your pick!");
+            } else if(count == 4 && lucky_guess == false) {
+                document.write("You won a prize of $200 for your pick!");
+            } else if(count == 4 && lucky_guess == true) {
+                document.write("You won a prize of $5,000 for your pick!");
+            } else if(count == 5 && lucky_guess == false) {
+                document.write("You won a prize of $25,000 a year for the " +
+                               "rest of your life for your pick!");
+            } else if(count == 5 && lucky_guess == true) {
+                document.write("You won a prize of $7,000 a week for the " + 
+                               "rest of your life for your pick!");
+            }
+            
+        </script>
+        
+    </body>
+
+</html>
