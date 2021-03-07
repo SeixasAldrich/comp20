@@ -14,23 +14,31 @@
             
             var win_num = [];
             
+            // Randomly picks the winning numbers and puts them into an
+            // array
             for (i = 0; i < 5; i++) {
                 win_num.push(Math.floor((Math.random() * 48)) + 1);
             }
             
+            // Sorts the winning number array
             win_num = win_num.sort(function(a, b){return a - b});
             
+            // Randomly picks the lucky ball number
             lucky_num = Math.floor((Math.random() * 18)) + 1;
             
+            // Gets the user inputted numbers
             user_num = prompt("Enter your 5 lottery number selections each " +
                                "seperated by a space:", "");
+            // Puts the user inputted numbers into an array
             indiv_num = user_num.split(" ");
             
-            user_lucky = prompt("Enter your lucky number selection:", "");
+            // Gets the user inputted lucky ball number
+            user_lucky = prompt("Enter your lucky ball number selection:", "");
             
             var count = 0;
             var lucky_guess = false;
             
+            // Finds if the users numbers are the same as any winning ones
             for (j = 0; j < 5; j++) {
                 for(k = 0; k < 5; k++) {
                     if(win_num[j] == indiv_num[k]) {
@@ -40,6 +48,7 @@
                 }
             }
             
+            // All of the statements below prints the necessary outputs
             document.write("Your numbers:" + "<br/>");
             
             for(l = 0; l < 5; l++) {
