@@ -7,6 +7,8 @@
         
         <script language="javascript">
         
+            // Function called by button that does all of the functions for
+            // checking if the number are amicable
             function checkAmic() {
                 this.number1 = document.getElementById("number1").value;
                 this.number2 = document.getElementById("number2").value;
@@ -22,6 +24,7 @@
                 is_amic_print();
             }
             
+            // This function finds the factors of a number
             function findFactors(x) {
                 var factors = [];
                 for(i = 0; i < x; i++) {
@@ -32,6 +35,8 @@
                 return factors;
             }
             
+            // This function sums the numbers in an array, which in this case
+            // will be an array of factors
             function sumFactors(y) {
                 var sum = 0;
                 for(j = 0; j < y.length; j++) {
@@ -40,6 +45,8 @@
                 return sum;
             }
             
+            // This function does a popup for the factors of the inputted
+            // numbers
             function alert_factors() {
                 alert("The factors for " + this.number1 + " are " +
                       this.factors1.join(", ") + ".");
@@ -47,6 +54,8 @@
                       this.factors2.join(", ") + ".");
             }
             
+            // This function prints the statement of if the numbers are amicable
+            // or not in a div below the button
             function is_amic_print() {
                 if((this.sum1 == this.number2) && (this.sum2 == this.number1)) {
                     document.getElementById("here").innerHTML="The numbers:  "
@@ -66,6 +75,8 @@
     <body>
         <h2>Amicable Numbers</h2>
         
+        <!-- This form takes in two numbers and then pushing the button checks
+             if they are amicable -->
         <form>
             First Number: <input type="number" id="number1">
             <br/>
@@ -75,8 +86,11 @@
             <br/>
         </form>
         
+        <!-- This div gets the output of if the numbers are amicable printed
+             to it -->
         <div id='here'>&nbsp;</div>
         
     </body>
 
 </html>
+
