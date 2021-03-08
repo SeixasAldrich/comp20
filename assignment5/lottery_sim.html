@@ -27,8 +27,8 @@
             lucky_num = Math.floor((Math.random() * 18)) + 1;
             
             // Gets the user inputted numbers
-            user_num = prompt("Enter your 5 lottery number selections each " +
-                               "seperated by a space:", "");
+            user_num = prompt("Enter your 5 lottery number selections between" +
+                       " 1 and 48 that are each seperated by a space:", "");
             
             // Puts the user inputted numbers into an array
             indiv_num = user_num.split(" ");
@@ -36,8 +36,8 @@
             // Sorts the user number array
             indiv_num = indiv_num.sort(function(a, b){return a - b});
             
-            // Gets the user inputted lucky ball number
-            user_lucky = prompt("Enter your lucky ball number selection:", "");
+            user_lucky = prompt("Enter your lucky ball number selection " +
+                         "between 1 and 18:", "");
             
             var count = 0;
             var lucky_guess = false;
