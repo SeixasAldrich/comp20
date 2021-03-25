@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<title>API Fun</title>
+	<meta charset="utf-8"/>
+	<script>
+		
+		function getDrink() {
+			
+			request = new XMLHttpRequest();
+			
+			request.open("GET", "https://www.thecocktaildb.com/api/json/v1/1/random.php", true);
+			
+			request.onreadystatechange = function() {
+				
+				if (request.readyState == 4 && request.status == 200) {
+				
+					result = request.responseText;
+					drink = JSON.parse(result);
+					
+					name = drink["drinks"][0]["strDrink"] + "<br>";
+					photo = "<img src='" + drink["drinks"][0]["strDrinkThumb"]
+					+ "' width='500px'>";
+					
+					document.getElementById("name").innerHTML = name;
+					document.getElementById("photo").innerHTML = photo;
+				
+				}
+				
+			}
+			
+			request.send();
+			
+			return true;
+			
+		}
+		
+		function reload() {
+			document.reload();
+		}
+		
+	</script>
+</head>
+    
+<body onload="getDrink()" style="text-align:center; background-color: #e0c68b;" >
+	
+	<h1>Random Drink:</h1>
+	<form onsubmit="return reload()">
+		<input type = "submit" value = "Get A Random Drink" 
+		style="background-color:#ab8be0"/>
+	</form>
+	<h2 id="name"></h2>
+	<div id="photo" ></div>
+	<p style="font-size:20px; padding:0% 20% 0% 20%">The API I selected for this assignment is a random cocktail generator. 
+	This gets a random drink from a database and gives you a variety of 
+	information on it, including its name, ingredients, recipe, photgraph, 
+	and more. The website I found it on was thecocktaildb.com. The options I 
+	used for the API request were I used the XMLHttpRequest function and then 
+	did a get request for the api url. After that, I used the event handler 
+	function onreadystatechange to do a function that displays the data when 
+	the readyState property of the request changes. Then, I put my code to 
+	display the data inside a conditional statement that only did it when the 
+	readyState was 4 and the status was 200, meaning the data was good to read. 
+	Inside that, I used responseText to get the data in the JSON format and 
+	parsed it. This let me get the data and use innerHTML to put it on my page. 
+	All of this code was called then the page was loaded, but also I made a 
+	submit type input to call a funciton to reload the page to get a new drink. 
+	Two applications where this API would be helpful are if a restaurant wanted 
+	some promotion where they needed a random drink to be generated, like guess 
+	a drink and if you guess right you get it free.  Also, if a bartending exam 
+	needed a random drink to be generated to test a applicant this API could be 
+	used and they might ask the person to name the ingredients or recipe.</p>
+    
+</body>
+</html>
