@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>JSON Song List</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script language="javascript">
+            $(document).ready(function(){
+                // Hide the all areas of the filter section
+                for(i = 0; i < 10; i++) {
+                    $("#song" + i).hide();
+                }
+                
+                // Make a HTTP request
+                request = new XMLHttpRequest();
+                
+                // Get the JSON file
+                request.open("GET", "https://seixasaldrich.github.io/comp20/assignment9/song_list.json", true);
+                
+                // Go into this function when the JSON file is ready
+                request.onreadystatechange = function() {
+                    // Only go into this if the JSON file was accessed correctly
+                    if (request.readyState == 4 && request.status == 200) {
+                        // Put the JSON string into result and parse into data
+                        result = request.responseText;
+                        data = JSON.parse(result);
+                        
+                        // Go through multiple conditions to make a table of
+                        // the songs and all of their corresponding values
+                        table = "<table style='width:60%;text-align:center;" +
+                        "margin-left:20%;margin-right:20%'><tr><th>Title</th>" +
+                        "<th>Artist(s)</th><th>Genre(s)</th><th>Year Released" +
+                        "</th></tr>";
+                        for(i = 0; i < data["songs"].length; i++) {
+                            table += "<tr><td>" + data["songs"][i]["title"] + "</td>";
+                            table += "<td>" + data["songs"][i]["artist(s)"][0] + "</td>";
+                            table += "<td>" + data["songs"][i]["genre(s)"][0] + "</td>";
+                            table += "<td>" + data["songs"][i]["year"] + "</td>";
+                            table += "</tr>";
+                            if(data["songs"][i]["artist(s)"].length > 1 || data["songs"][i]["genre(s)"].length > 1) {
+                                if(data["songs"][i]["artist(s)"].length > data["songs"][i]["genre(s)"].length) {
+                                    for(j = 1; j < data["songs"][i]["genre(s)"].length; j++) {
+                                        table += "<tr><td></td>";
+                                        table += "<td>" + data["songs"][i]["artist(s)"][j] + "</td>";
+                                        table += "<td>" + data["songs"][i]["genre(s)"][j] + "</td>";
+                                        table += "<td></td>";
+                                        table += "</tr>";
+                                    }
+                                    for(k = j; k < data["songs"][i]["artist(s)"].length; k++) {
+                                        table += "<tr><td></td>";
+                                        table += "<td>" + data["songs"][i]["artist(s)"][k] + "</td>";
+                                        table += "<td></td>";
+                                        table += "<td></td>";
+                                        table += "</tr>";
+                                    }
+                                } else if(data["songs"][i]["artist(s)"].length < data["songs"][i]["genre(s)"].length) {
+                                    for(j = 1; j < data["songs"][i]["artist(s)"].length; j++) {
+                                        table += "<tr><td></td>";
+                                        table += "<td>" + data["songs"][i]["artist(s)"][j] + "</td>";
+                                        table += "<td>" + data["songs"][i]["genre(s)"][j] + "</td>";
+                                        table += "<td></td>";
+                                        table += "</tr>";
+                                    }
+                                    for(k = j; k < data["songs"][i]["genre(s)"].length; k++) {
+                                        table += "<tr><td></td>";
+                                        table += "<td></td>";
+                                        table += "<td>" + data["songs"][i]["genre(s)"][k] + "</td>";
+                                        table += "<td></td>";
+                                        table += "</tr>";
+                                    }
+                                }
+                                else if(data["songs"][i]["artist(s)"].length == data["songs"][i]["genre(s)"].length) {
+                                    for(j = 1; j < data["songs"][i]["artist(s)"].length; j++) {
+                                        table += "<tr><td></td>";
+                                        table += "<td>" + data["songs"][i]["artist(s)"][j] + "</td>";
+                                        table += "<td>" + data["songs"][i]["genre(s)"][j] + "</td>";
+                                        table += "<td></td>";
+                                        table += "</tr>";
+                                    }
+                                }
+                            }
+                        }
+                        table += "</table>";
+                        
+                        // Put the JSON string and table of the songs onto
+                        // the website
+                        document.getElementById("rawString").innerHTML = result;
+                        document.getElementById("table").innerHTML = table;
+                        
+                        // Show the songs that are in the genre selected in 
+                        // part 4 and hide others
+                        $("[name='button']").click(function() {
+                            for(i = 0; i < 10; i++) {
+                                $("#song" + i).hide();
+                            }
+                            for(i = 0; i < data["songs"].length; i++) {
+                                for(j = 0; j < data["songs"][i]["genre(s)"].length; j++) {
+                                    if(data["songs"][i]["genre(s)"][j] == document.forms[0].filter.value) {
+                                        $("#song" + i).show();
+                                    }
+                                }
+                            }
+                        });
+                        
+                        // Set the song data to the areas for the filter
+                        for(i = 0; i < 10; i++) {
+                            $("#song" + i).text(data["songs"][i]["title"] + " by " + data["songs"][i]["artist(s)"][0]);
+                        }
+                    }
+                }
+                
+                request.send();
+            });
+                
+        </script>
+    </head>
+    
+    <body style="background-color:#00cccc; padding-bottom:100px">
+        
+        <h1>JSON Song List<h1>
+        
+        <h2>Part 2: Serialize and Display<h2>
+        <div id="rawString" style="font-size:16px; font-weight:normal"></div>
+        
+        <h2>Part 3: User Friendly Display<h2>
+        <div id="table" style="font-size:16px; font-weight:normal"></div>
+        
+        <h2>Part 4: Filter the Data</h2>
+        <!-- Make a form for the filter of choosing a genre and showing the
+        songs in that genre -->
+        <form style="text-align:center">
+            <h3>Pick a genre:</h3>
+            <select name="filter">
+                <option value="Rock">Rock</option>
+                <option value="Alternative">Alternative</option>
+                <option value="Indie">Indie</option>
+                <option value="Singer-Songwriter">Singer-Songwriter</option>
+                <option value="Hip-Hop">Hip-Hop</option>
+                <option value="Rap">Rap</option>
+                <option value="Pop">Pop</option>
+            </select>
+            <input type="button" value="Filter" name="button" style="background-color:#cc3300">
+        </form>
+        <!-- Data for the filter is in the paragraphs below -->
+        <p id="song0" style="font-size:16px; text-align:center"></p>
+        <p id="song1" style="font-size:16px; text-align:center"></p>
+        <p id="song2" style="font-size:16px; text-align:center"></p>
+        <p id="song3" style="font-size:16px; text-align:center"></p>
+        <p id="song4" style="font-size:16px; text-align:center"></p>
+        <p id="song5" style="font-size:16px; text-align:center"></p>
+        <p id="song6" style="font-size:16px; text-align:center"></p>
+        <p id="song7" style="font-size:16px; text-align:center"></p>
+        <p id="song8" style="font-size:16px; text-align:center"></p>
+        <p id="song9" style="font-size:16px; text-align:center"></p>
+    </body>
+</html>
