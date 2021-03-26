@@ -1,0 +1,62 @@
+[
+	{
+	"artist(s)": ["Bug Hunter"],
+	"title": "Boogie Pete",
+	"genre": ["Rock"],
+	"year": 2018
+},
+{
+    "artist(s)": ["Autoheart"],
+    "title": "Moscow",
+    "genre": ["Alternative","Indie"],
+    "year": 2013
+},
+{
+    "artist(s)": ["Penelope Scott"],
+    "title": "Sweet Hibiscus Tea",
+    "genre": ["Singer-Songwriter"],
+    "year": 2020
+},
+{
+    "artist(s)": ["The Happy Fits"],
+    "title": "Dirty Imbecile",
+    "genre": ["Alternative","Indie"],
+    "year": 2016
+},
+{
+    "artist(s)": ["Seb Adams"],
+    "title": "Never Have I Ever",
+    "genre": ["Rock"],
+    "year": 2020
+},
+{
+    "artist(s)": ["MC Virgins","Yun Head","Shotgun Willy"],
+    "title": "Bumpin'",
+    "genre": ["Hip-Hop","Rap"],
+    "year": 2021
+},
+{
+    "artist(s)": ["Common Shiner"],
+    "title": "Social Mediasochist",
+    "genre": ["Rock"],
+    "year": 2013
+},
+{
+    "artist(s)": ["Write Out Loud","Taylor Louderman"],
+    "title": "Little Miss Perfect",
+    "genre": ["Pop"],
+    "year": 2019
+},
+{
+    "artist(s)": ["The Offspring"],
+    "title": "You're Gonna Go Far, Kid",
+    "genre": ["Alternative","Indie","Rock"],
+    "year": 2008
+},
+{
+    "artist(s)": ["Spence Hood"],
+    "title": "Foothills",
+    "genre": ["Pop"],
+    "year": 2019
+},
+	]
