@@ -1,5 +1,6 @@
-[
-	{
+{"songs":
+    [
+{
 	"artist(s)": ["Bug Hunter"],
 	"title": "Boogie Pete",
 	"genre": ["Rock"],
@@ -60,3 +61,4 @@
     "year": 2019
 },
 	]
+}
