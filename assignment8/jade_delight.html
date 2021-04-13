@@ -76,57 +76,57 @@ paragraphs that hide -->
 <!-- Calculate and put cost into respective text fields -->
 <script language="javascript">
 	$(document).ready(function(){
-		var subtotal = 0;
 		$("[name|='quan0']").change(function(){
-			index = document.forms[0].quan0.selectedIndex;
-			val = document.forms[0].quan0.options[index].text;
-			cost = val * 4.5;
-			document.forms[0].cost[0].value = cost.toFixed(2);
-			subtotal = fillIn(0, subtotal);
+			fillIn();
 		});
 		
 		$("[name|='quan1']").change(function(){
-			index = document.forms[0].quan1.selectedIndex;
-			val = document.forms[0].quan1.options[index].text;
-			cost = val * 6.25;
-			document.forms[0].cost[1].value = cost.toFixed(2);
-			subtotal = fillIn(1, subtotal);
+			fillIn();
 		});
 		
 		$("[name|='quan2']").change(function(){
-			index = document.forms[0].quan2.selectedIndex;
-			val = document.forms[0].quan2.options[index].text;
-			cost = val * 5.25;
-			document.forms[0].cost[2].value = cost.toFixed(2);
-			subtotal = fillIn(2, subtotal);
+			fillIn();
 		});
 		
 		$("[name|='quan3']").change(function(){
-			index = document.forms[0].quan3.selectedIndex;
-			val = document.forms[0].quan3.options[index].text;
-			cost = val * 6.5;
-			document.forms[0].cost[3].value = cost.toFixed(2);
-			subtotal = fillIn(3, subtotal);
+			fillIn();
 		});
 		
 		$("[name|='quan4']").change(function(){
-			index = document.forms[0].quan4.selectedIndex;
-			val = document.forms[0].quan4.options[index].text;
-			cost = val * 2.35;
-			document.forms[0].cost[4].value = cost.toFixed(2);
-			subtotal = fillIn(4, subtotal);
+			fillIn();
 		});
 		
 	});
 	
-	function fillIn(n, subtotal) {
-		subtotal = parseFloat(subtotal) + parseFloat(document.forms[0].cost[n].value);
+	function fillIn() {
+		subtotal = 0;
+		index0 = document.forms[0].quan0.selectedIndex;
+		index1 = document.forms[0].quan1.selectedIndex;
+		index2 = document.forms[0].quan2.selectedIndex;
+		index3 = document.forms[0].quan3.selectedIndex;
+		index4 = document.forms[0].quan4.selectedIndex;
+		value0 = document.forms[0].quan0.options[index0].text;
+		value1 = document.forms[0].quan1.options[index1].text;
+		value2 = document.forms[0].quan2.options[index2].text;
+		value3 = document.forms[0].quan3.options[index3].text;
+		value4 = document.forms[0].quan4.options[index4].text;
+		cost0 = value0 * menuItems[0].cost;
+		cost1 = value1 * menuItems[1].cost;
+		cost2 = value2 * menuItems[2].cost;
+		cost3 = value3 * menuItems[3].cost;
+		cost4 = value4 * menuItems[4].cost;
+		document.forms[0].cost[0].value = cost0.toFixed(2);
+		document.forms[0].cost[1].value = cost1.toFixed(2);
+		document.forms[0].cost[2].value = cost2.toFixed(2);
+		document.forms[0].cost[3].value = cost3.toFixed(2);
+		document.forms[0].cost[4].value = cost4.toFixed(2);
+		
+		subtotal = cost0 + cost1 + cost2 + cost3 + cost4;
 		document.forms[0].subtotal.value = subtotal.toFixed(2);
 		tax = subtotal * .0625;
 		document.forms[0].tax.value = tax.toFixed(2);
 		total = subtotal * 1.0625;
 		document.forms[0].total.value = total.toFixed(2);
-		return subtotal;
 	}
 
 </script>
@@ -182,7 +182,7 @@ paragraphs that hide -->
 		var time;
 		
 		if (document.forms[0].p_or_d[0].checked) {
-			temp = parseInt(m) + 30;
+			temp = parseInt(m) + 15;
 			
 			if (temp > 60) {
 				m = temp % 60;
@@ -192,20 +192,21 @@ paragraphs that hide -->
 				} else if (m == 0 || m == "") {
 					m = "00";
 				}
-				if (h > 23) {
-					h = h % 24;
-				}
-				if (h == 0) {
-					h = 12;
-				} else if (h > 12) {
-					h = parseInt(h % 13) + 1;
-				}
 			} else {
 				m = temp;
 			}
+			if (h > 23) {
+				h = h % 24;
+			}
+			if (h == 0) {
+				h = 12;
+			} else if (h > 12) {
+				h = parseInt(h % 13) + 1;
+			}
+			
 			time = h + ":" + m;
 		} else if (document.forms[0].p_or_d[1].checked) {
-			temp = parseInt(m) + 60;
+			temp = parseInt(m) + 30;
 			if (temp > 60) {
 				m = temp % 60;
 				h++;
