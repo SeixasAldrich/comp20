@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- Added jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Jade Delight</title>
+<link rel='stylesheet' type="text/css" href="styleJadeDelight.css" />
+</head>
+
+
+
+<body>
+
+<?php
+
+	//Initialize connection info
+	$server = "sql210.epizy.com";
+	$userid = "epiz_27849968";
+	$pw = "YSGfvMca1fq9n";
+	$db= "epiz_27849968_jadeDelight";
+	
+	// Create connection
+	$conn = new mysqli($server, $userid, $pw, $db);
+	
+	// Check connection
+	if ($conn->connect_error) {
+	  die("Connection failed: " . $conn->connect_error);
+	}
+	
+	//echo "Connected successfully";
+	
+	$name = array();
+	$cost = array();
+	
+	$sql = "SELECT * FROM products";
+	$result = $conn->query($sql);
+	
+	while($row = $result->fetch_array()) 
+    {
+		array_push($name, $row["name"]);
+		array_push($cost, $row["cost"]);
+	}
+	
+	$result -> free_result();
+	
+	$conn->close();
+?>
+
+<script language="javascript">
+
+item_name = <?php echo json_encode($name) ?>;
+
+function MenuItem(name, cost)
+{
+	this.name = name;
+	this.cost=cost;
+}
+
+menuItems = new Array(
+	new MenuItem(item_name[0], <?php echo ($cost[0]) ?>),
+	new MenuItem(item_name[1], <?php echo ($cost[1]) ?>),
+	new MenuItem(item_name[2], <?php echo ($cost[2]) ?>),
+	new MenuItem(item_name[3], <?php echo ($cost[3]) ?>),
+	new MenuItem(item_name[4], <?php echo ($cost[4]) ?>)
+);
+
+function makeSelect(name, minRange, maxRange)
+{
+	var t= "";
+	t = "<select name='" + name + "' size='1'>";
+	for (j=minRange; j<=maxRange; j++)
+	   t += "<option>" + j + "</option>";
+	t+= "</select>"; 
+	return t;
+}
+</script>
+
+<h1>Jade Delight</h1>
+<!-- Added onsubmit validation to form -->
+<form method='get' action='http://seixaswebsite.infinityfreeapp.com/order.php' onsubmit="return validate()">
+
+<p>First Name: <input type="text"  name='fname' /></p>
+<p>Last Name*:  <input type="text"  name='lname' /></p>
+<p>Email*: <input type="text" name='email' /></p>
+<p><input type="text" class="order" name="order" /></p>
+<p><input type="text" class="order" name="time" /></p>
+<!-- Added class names and stars representing requirement for the two
+paragraphs that hide -->
+<p class="del_con">Street: <input type="text"  name='street' /></p>
+<p class="del_con">City: <input type="text"  name='city' /></p>
+<p>Phone*: <input type="text"  name='phone' /></p>
+<p> 
+	<input type="radio"  name='p_or_d' value = "pickup" checked="checked"/>Pickup  
+	<input type="radio"  name='p_or_d' value = 'delivery'/>Delivery
+</p>
+<table border="0" cellpadding="3">
+  <tr>
+    <th>Select Item</th>
+    <th>Item Name</th>
+    <th>Cost Each</th>
+    <th>Total Cost</th>
+  </tr>
+<script language="javascript">
+
+  var s = "";
+  for (i=0; i< menuItems.length; i++)
+  {
+	  s += "<tr><td>";
+	  s += makeSelect("quan" + i, 0, 10);
+	  s += "</td><td>" + menuItems[i].name + "</td>";
+	  s += "<td> $ " + menuItems[i].cost.toFixed(2) + "</td>";
+	  s += "<td>$<input type='text' name='cost'/></td></tr>";
+  }
+  document.writeln(s);
+</script>
+
+<!-- Calculate and put cost into respective text fields -->
+<script language="javascript">
+	$(document).ready(function(){
+		$("[name|='quan0']").change(function(){
+			fillIn();
+		});
+		
+		$("[name|='quan1']").change(function(){
+			fillIn();
+		});
+		
+		$("[name|='quan2']").change(function(){
+			fillIn();
+		});
+		
+		$("[name|='quan3']").change(function(){
+			fillIn();
+		});
+		
+		$("[name|='quan4']").change(function(){
+			fillIn();
+		});
+		
+	});
+	
+	function fillIn() {
+		subtotal = 0;
+		index0 = document.forms[0].quan0.selectedIndex;
+		index1 = document.forms[0].quan1.selectedIndex;
+		index2 = document.forms[0].quan2.selectedIndex;
+		index3 = document.forms[0].quan3.selectedIndex;
+		index4 = document.forms[0].quan4.selectedIndex;
+		value0 = document.forms[0].quan0.options[index0].text;
+		value1 = document.forms[0].quan1.options[index1].text;
+		value2 = document.forms[0].quan2.options[index2].text;
+		value3 = document.forms[0].quan3.options[index3].text;
+		value4 = document.forms[0].quan4.options[index4].text;
+		cost0 = value0 * menuItems[0].cost;
+		cost1 = value1 * menuItems[1].cost;
+		cost2 = value2 * menuItems[2].cost;
+		cost3 = value3 * menuItems[3].cost;
+		cost4 = value4 * menuItems[4].cost;
+		document.forms[0].cost[0].value = cost0.toFixed(2);
+		document.forms[0].cost[1].value = cost1.toFixed(2);
+		document.forms[0].cost[2].value = cost2.toFixed(2);
+		document.forms[0].cost[3].value = cost3.toFixed(2);
+		document.forms[0].cost[4].value = cost4.toFixed(2);
+		
+		subtotal = cost0 + cost1 + cost2 + cost3 + cost4;
+		document.forms[0].subtotal.value = subtotal.toFixed(2);
+		tax = subtotal * .0625;
+		document.forms[0].tax.value = tax.toFixed(2);
+		total = subtotal * 1.0625;
+		document.forms[0].total.value = total.toFixed(2);
+	}
+
+</script>
+
+<!-- Hide and Show street and city text fields when specified -->
+<script language="javascript">
+	$(document).ready(function(){
+		$(".del_con").hide();
+		$(".del_con").hide();
+		$(".order").hide();
+		$("[name='p_or_d']").change(function(){
+			if (document.forms[0].p_or_d[1].checked) {
+				$(".del_con").show();
+				$(".del_con").show();
+			} else {
+				$(".del_con").hide();
+				$(".del_con").hide();
+			}
+        });
+	});
+</script>
+
+<!-- Validate the form before submitting -->
+<script language="javascript">
+	function validate() {
+		
+		// Validate last name input
+		if (document.forms[0].lname.value == "") {
+			alert("Enter a last name:");
+			document.forms[0].lname.focus();
+			document.forms[0].lname.select();
+			return false;
+		}
+		
+		// Validate email input
+		if (document.forms[0].email.value == "") {
+			alert("Enter an email:");
+			document.forms[0].email.focus();
+			document.forms[0].email.select();
+			return false;
+		}
+		
+		// Validate phone number input and correct style of input
+		regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+		
+		if (document.forms[0].phone.value == "") {
+			alert("Enter a phone number:");
+			document.forms[0].phone.focus();
+			document.forms[0].phone.select();
+			return false;
+		} else if (!document.forms[0].phone.value.match(regex)) {
+			alert("Enter a valid phone number: (xxxxxxxxxx)");
+			document.forms[0].phone.focus();
+			document.forms[0].phone.select();
+			return false;
+		}
+		
+		// Calculate time when order will be ready
+		d = new Date();
+		h = d.getHours();
+		m = d.getMinutes();
+		var time;
+		
+		if (document.forms[0].p_or_d[0].checked) {
+			temp = parseInt(m) + 15;
+			
+			if (temp > 60) {
+				m = temp % 60;
+				h++;
+				if (m < 10) {
+					m = "0" + m;
+				} else if (m == 0 || m == "") {
+					m = "00";
+				}
+			} else {
+				m = temp;
+			}
+			if (h > 23) {
+				h = h % 24;
+			}
+			if (h == 0) {
+				h = 12;
+			} else if (h > 12) {
+				h = parseInt(h % 13) + 1;
+			}
+			
+			time = h + ":" + m;
+			
+			document.forms[0].time.value = time;
+			
+		} else if (document.forms[0].p_or_d[1].checked) {
+			temp = parseInt(m) + 30;
+			if (temp > 60) {
+				m = temp % 60;
+				h++;
+				if (m < 10) {
+					m = "0" + m;
+				} else if (m == 0 || m == "") {
+					m = "00";
+				}
+			} else {
+				m = temp;
+			}
+			if (h > 23) {
+				h = h % 24;
+			}
+			if (h == 0) {
+				h = 12;
+			} else if (h > 12) {
+				h = parseInt(h % 13) + 1;
+			}
+			time = h + ":" + m;
+			document.forms[0].time.value = time;
+			
+			// Validation of street and city inputs when delivery is checked
+			if (document.forms[0].street.value == "") {
+				alert("Enter a street for delivery:");
+				document.forms[0].street.focus();
+				document.forms[0].street.select();
+				return false;
+			}
+			
+			if (document.forms[0].city.value == "") {
+				alert("Enter a city for delivery:");
+				document.forms[0].city.focus();
+				document.forms[0].city.select();
+				return false;
+			}
+		}
+		
+		// Validation of order
+		if (document.forms[0].quan0.selectedIndex == 0 && 
+			document.forms[0].quan1.selectedIndex == 0 && 
+			document.forms[0].quan2.selectedIndex == 0 && 
+			document.forms[0].quan3.selectedIndex == 0 && 
+			document.forms[0].quan4.selectedIndex == 0) {
+				alert("You must order at least one food item to submit your order:");
+				return false;
+		}
+		
+		// // Text formatting
+		// if (document.forms[0].quan0.selectedIndex != 0) {
+		// 	order = order + document.forms[0].quan0.selectedIndex + " " + 
+		// 	menuItems[0].name + "\n";
+		// }
+		// if (document.forms[0].quan1.selectedIndex != 0) {
+		// 	order = order + document.forms[0].quan1.selectedIndex + " " + 
+		// 	menuItems[1].name + "\n";
+		// }
+		// if (document.forms[0].quan2.selectedIndex != 0) {
+		// 	order = order + document.forms[0].quan2.selectedIndex + " " + 
+		// 	menuItems[2].name + "\n";
+		// }
+		// if (document.forms[0].quan3.selectedIndex != 0) {
+		// 	order = order + document.forms[0].quan3.selectedIndex + " " + 
+		// 	menuItems[3].name + "\n";
+		// }
+		// if (document.forms[0].quan4.selectedIndex != 0) {
+		// 	order = order + document.forms[0].quan4.selectedIndex + " " + 
+		// 	menuItems[4].name + "\n";
+		// }
+		// 
+		// // Alert user of their order
+		// if(document.forms[0].p_or_d[0].checked){
+		// 	alert("Thank you for your order of:\n" + order + 
+		// 		  "Your food will be ready for pickup at " + time + ".\n" + 
+		// 		  "The total amount for your order is $" + 
+		// 		  document.forms[0].total.value + ".");
+		// } else {
+		// 	alert("Thank you for your order of:\n" + order + 
+		// 		  "Your food will be delivered to " +
+		// 		  document.forms[0].street.value + ", " +
+		// 		  document.forms[0].city.value + " at " + time + ".\n" + 
+		// 		  "The total amount for your order is $" + 
+		// 		  document.forms[0].total.value + ".");
+		// }
+		
+		var order = "Name for Order: " + document.forms[0].fname.value + " "
+					+ document.forms[0].lname.value + "<br>" + "Items: ";
+		if (document.forms[0].quan0.selectedIndex != 0) {
+			order = order + document.forms[0].quan0.selectedIndex + " " + 
+			menuItems[0].name + " which costs $" + 
+			document.forms[0].cost[0].value + "<br>";
+		}
+		if (document.forms[0].quan1.selectedIndex != 0) {
+			order = order + document.forms[0].quan1.selectedIndex + " " + 
+			menuItems[1].name + " which costs $" + 
+			document.forms[0].cost[1].value + "<br>";
+		}
+		if (document.forms[0].quan2.selectedIndex != 0) {
+			order = order + document.forms[0].quan2.selectedIndex + " " + 
+			menuItems[2].name + " which costs $" + 
+			document.forms[0].cost[2].value + "<br>";
+		}
+		if (document.forms[0].quan3.selectedIndex != 0) {
+			order = order + document.forms[0].quan3.selectedIndex + " " + 
+			menuItems[3].name + " which costs $" + 
+			document.forms[0].cost[3].value + "<br>";
+		}
+		if (document.forms[0].quan4.selectedIndex != 0) {
+			order = order + document.forms[0].quan4.selectedIndex + " " + 
+			menuItems[4].name + " which costs $" + 
+			document.forms[0].cost[4].value + "<br>";
+		}
+		order = order + "The subtotal of your order is $" + 
+		document.forms[0].subtotal.value + ".<br>";
+		
+		order = order + "The tax of your order is $" + 
+		document.forms[0].tax.value + ".<br>";
+		
+		order = order + "The total cost of your order is $" + 
+		document.forms[0].total.value + ".<br>";
+		
+		if(document.forms[0].p_or_d[0].checked){
+			order = order + "Your food will be ready for pickup at " + 
+			time + ".<br>";
+		} else {
+			order = order + "Your food will be delivered to " +
+			document.forms[0].street.value + ", " +
+			document.forms[0].city.value + " at " + time + ".<br>"
+		}
+		document.forms[0].order.value = order;
+		
+		
+		return true;
+	}
+</script>
+
+</table>
+<p>Subtotal: 
+   $<input type="text"  name='subtotal' id="subtotal" />
+</p>
+<p>Mass tax 6.25%:
+  $ <input type="text"  name='tax' id="tax" />
+</p>
+<p>Total: $ <input type="text"  name='total' id="total" />
+</p>
+
+<!-- I changed the button to a submit type so the onsubmit function worked -->
+<input type = "submit" value = "Submit Order" />
+
+</form>
+</body>
+</html>
