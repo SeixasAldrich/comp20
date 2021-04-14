@@ -207,6 +207,7 @@ paragraphs that hide -->
 			time = h + ":" + m;
 		} else if (document.forms[0].p_or_d[1].checked) {
 			temp = parseInt(m) + 30;
+			
 			if (temp > 60) {
 				m = temp % 60;
 				h++;
@@ -215,17 +216,18 @@ paragraphs that hide -->
 				} else if (m == 0 || m == "") {
 					m = "00";
 				}
-				if (h > 23) {
-					h = h % 24;
-				}
-				if (h == 0) {
-					h = 12;
-				} else if (h > 12) {
-					h = parseInt(h % 13) + 1;
-				}
 			} else {
 				m = temp;
 			}
+			if (h > 23) {
+				h = h % 24;
+			}
+			if (h == 0) {
+				h = 12;
+			} else if (h > 12) {
+				h = parseInt(h % 13) + 1;
+			}
+			
 			time = h + ":" + m;
 			
 			// Validation of street and city inputs when delivery is checked
