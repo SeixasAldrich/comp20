@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<title>Stock Ticker App</title>
+	<meta charset="utf-8"/>
+</head>
+    
+<body style="background-color: #DDC9B4; color: #2A3D45; text-align: center">
+	<h2>Stock Query</h2>
+	<form action="http://localhost:8080/process" method="POST">
+		<p class="name">Company Name: <input type="text"  name='name' style="background-color: #BCAC9B; color: #2A3D45"/></p>
+		<p class="ticker">Stock Ticker: <input type="text"  name='ticker' style="background-color: #BCAC9B; color: #2A3D45"/></p>
+		<p>
+			<input type="radio"  name='n_or_t' value = "name" checked="checked"/>Company Name
+			<input type="radio"  name='n_or_t' value = "ticker"/>Stock Ticker
+		</p>
+		<p><input type = "submit" value = "Submit Query" style="background-color: #C17C74; color: #2A3D45"/></p>
+	</form>
+	
+    
+	<script language="javascript">
+		$(document).ready(function(){
+			$(".ticker").hide();
+			$(".here").hide();
+			$("[name='n_or_t']").change(function(){
+				if (document.forms[0].n_or_t[0].checked) {
+					$(".name").show();
+					$(".ticker").hide();
+				} else {
+					$(".name").hide();
+					$(".ticker").show();
+				}
+			});
+		});
+	</script>
+    
+</body>
+</html>
